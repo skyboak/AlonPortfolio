@@ -25,11 +25,11 @@ const Navbar = () => (
       <NavMenu>
         <NavMenuItem href="/posts/">DevLog</NavMenuItem>
         <a
-          href="/public/assets/AlonBarak_Resume.pdf"
+          href="/assets/AlonBarak_Resume.pdf"
           download
-          style={{ color: 'lightBlue' }}
+          style={{ color: 'cyan' }}
         >
-          Download Resume
+          Download Resume 👈🏻
         </a>
       </NavMenu>
     </NavbarTwoColumns>

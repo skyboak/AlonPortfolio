@@ -15,12 +15,10 @@ const Hero = () => (
       }
       description={
         <>
-          Building the future of interactive experiences, one line of code at a
-          time. I'm Alon Barak, a collaborative software engineering student
-          with a hunger for knowledge and a knack for creative problem-solving.
-          Whether you're looking for a skilled coding partner or just want to
-          see what fuels my passion, step into my portfolio and let's explore
-          the possibilities together.
+          Welcome to my software engineering portfolio! I'm a student with a
+          strong interest in programming. This website is a collection of my
+          projects, where you can explore the applications I've built and the
+          technologies I've used. Dive in and see what I've been working on!
         </>
       }
       avatar={
@@ -34,13 +32,13 @@ const Hero = () => (
       }
       socialButtons={
         <>
-          <a href="/">
+          <a href="https://www.linkedin.com/in/alon-barak13/" target="_blank">
             <HeroSocial
               src="/assets/images/linkedin-icon.png"
               alt="Linkedin icon"
             />
           </a>
-          <a href="/">
+          <a href="https://github.com/skyboak" target="_blank">
             <HeroSocial src="/assets/images/githubIcon.png" alt="github icon" />
           </a>
         </>

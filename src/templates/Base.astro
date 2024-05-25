@@ -1,5 +1,4 @@
 ---
-import { Footer } from '@/partials/Footer';
 import { Navbar } from '@/partials/Navbar';
 import { AppConfig } from '@/utils/AppConfig';
 
@@ -24,13 +23,14 @@ const {
     <meta name='author' content={AppConfig.author} />
 
     <link rel='alternate' type='application/rss+xml' href='/rss.xml' />
-    <link rel='icon' type='image/x-icon' href='/favicon.ico' />
+    <link rel='icon' type='image/x-icon' href='/assets/images/supermanIcon.ico'
+    />
   </head>
   <body class='bg-slate-900 text-gray-100'>
     <Navbar />
 
     <slot></slot>
 
-    <Footer />
+    <!-- <Footer /> -->
   </body>
 </html>
