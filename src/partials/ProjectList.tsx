@@ -38,7 +38,7 @@ const ProjectList = () => (
       <Project
         name="GoNature Academic Project"
         description="A Full Stack application for managing a nature reserve, including an application for visitors and park workers. Developed with Java, JavaFx, MySql, and OCSF."
-        link="/"
+        link="/posts/GoNature"
         img={{ src: '/assets/images/GoNatureLogo.png', alt: 'GoNature' }}
         category={
           <>
