@@ -3,7 +3,6 @@ import type { IFrontmatter } from 'astro-boilerplate-components';
 
 import { Hero } from '@/partials/Hero';
 import { ProjectList } from '@/partials/ProjectList';
-import { RecentPosts } from '@/partials/RecentPosts';
 import Base from '@/templates/Base.astro';
 import { AppConfig } from '@/utils/AppConfig';
 import { sortByDate } from '@/utils/Posts';
@@ -17,7 +16,7 @@ const { description } = AppConfig;
 ---
 
 <Base head={{ title, description }}>
-  <Hero />
-  <ProjectList />
-  <RecentPosts postList={lastThreePosts} />
+  <Hero client:load />
+  <ProjectList client:visible />
+  <!-- <RecentPosts postList={lastThreePosts} /> -->
 </Base>

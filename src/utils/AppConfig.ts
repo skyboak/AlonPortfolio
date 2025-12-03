@@ -5,4 +5,5 @@ export const AppConfig = {
   author: 'Alon Barak',
   locale_region: 'en-us',
   locale: 'en',
+  contact_email: 'AlonBarak@Gmail.com',
 };

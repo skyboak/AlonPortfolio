@@ -1,0 +1,70 @@
+---
+import { games } from '../games/registry';
+import Base from '../templates/Base.astro';
+import { AppConfig } from '../utils/AppConfig';
+
+const { title } = AppConfig;
+const pageTitle = `Games | ${title}`;
+const description = 'Play small interactive games built by Alon.';
+---
+
+<Base head={{ title: pageTitle, description }}>
+  <section class='mx-auto max-w-4xl px-4 py-10'>
+    <h1 class='text-3xl font-bold tracking-tight text-slate-100'>
+      Games I've Made
+    </h1>
+    <p class='mt-2 max-w-prose text-sm text-slate-300'>
+      A growing collection of small interactive components and prototype games.
+    </p>
+
+    <div class='mt-8 grid gap-6 sm:grid-cols-2'>
+      {games.map((g) => (
+        <article
+          class="rounded-lg border border-cyan-500/20 bg-slate-800/40 p-4 backdrop-blur-sm"
+          data-game={g.slug}
+        >
+          {g.image && (
+            <div class="mb-3 overflow-hidden rounded-md">
+              <img
+                src={g.image.src}
+                alt={g.image.alt}
+                loading="lazy"
+                class="h-64 w-full object-cover object-center"
+              />
+            </div>
+          )}
+          <h2 class="text-base font-semibold text-cyan-300">{g.title}</h2>
+          <p class="mt-1 line-clamp-5 text-xs leading-relaxed text-slate-300">
+            {g.description}
+          </p>
+          <div class="mt-4 flex items-center gap-2">
+            {g.component && (
+              <a
+                href={`/games/${g.slug}/`}
+                class="rounded-md bg-cyan-600 px-3 py-1.5 text-xs font-medium text-white shadow hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              >
+                Play
+              </a>
+            )}
+            {g.url && (
+              <a
+                href={g.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-md bg-cyan-600 px-3 py-1.5 text-xs font-medium text-white shadow hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              >
+                Open
+              </a>
+            )}
+            <a
+              href={`/posts/${g.slug}/`}
+              class="rounded-md border border-cyan-500 px-3 py-1.5 text-xs font-medium text-cyan-300 hover:bg-cyan-500/10 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            >
+              Details
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

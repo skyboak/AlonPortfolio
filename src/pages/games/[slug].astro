@@ -1,0 +1,102 @@
+---
+import { ClickCounterGame } from '../../games/components/ClickCounterGame';
+import GauntletMatch from '../../games/gauntletMatch/gauntletMatch';
+import { findGame, games } from '../../games/registry';
+import Base from '../../templates/Base.astro';
+import { AppConfig } from '../../utils/AppConfig';
+
+export async function getStaticPaths() {
+  return games.map((g) => ({ params: { slug: g.slug } }));
+}
+
+const { slug } = Astro.params;
+const game = findGame(slug as string);
+
+if (!game) {
+  throw new Error(`Game not found: ${slug}`);
+}
+
+const { title } = AppConfig;
+const pageTitle = `${game.title} | Games | ${title}`;
+const { description } = game;
+---
+
+<Base head={{ title: pageTitle, description }}>
+  {game.slug === 'gauntlet-match' && !game.url ? (
+    <div class="fixed inset-0 z-50 bg-slate-900">
+      <div class="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-slate-700 bg-slate-800/90 px-4 py-2 backdrop-blur-sm">
+        <div class="flex items-center gap-4">
+          <a
+            href="/"
+            class="flex items-center transition-opacity hover:opacity-80"
+            title="Back to Home"
+          >
+            <img
+              src="/assets/images/siteIcon.png"
+              alt="Site Logo"
+              class="h-6 w-6 rounded"
+            />
+          </a>
+          <a
+            href="/games/"
+            class="flex items-center gap-1 text-xs font-medium text-cyan-300 hover:underline"
+          >
+            <svg
+              class="h-3 w-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back to Games
+          </a>
+          <h1 class="text-lg font-bold text-slate-100">{game.title}</h1>
+        </div>
+      </div>
+
+      <div class="h-full w-full overflow-y-auto overscroll-contain pt-12">
+        <GauntletMatch client:load />
+      </div>
+    </div>
+  ) : (
+    <section class="mx-auto max-w-4xl px-4 py-10">
+      <a
+        href="/games/"
+        class="text-xs font-medium text-cyan-300 hover:underline"
+      >
+        ← Back to Games
+      </a>
+      <h1 class="mt-4 text-3xl font-bold tracking-tight text-slate-100">
+        {game.title}
+      </h1>
+      <p class="mt-3 max-w-prose text-sm leading-relaxed text-slate-300">
+        {game.description}
+      </p>
+
+      {game.url && (
+        <div class="mt-6">
+          <a
+            href={game.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-md bg-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          >
+            Open Game
+          </a>
+        </div>
+      )}
+
+      {game.slug === 'click-counter' && !game.url && (
+        <div class="mt-8">
+          <ClickCounterGame client:load />
+        </div>
+      )}
+    </section>
+  )}
+</Base>
