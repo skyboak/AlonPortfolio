@@ -1,0 +1,386 @@
+[
+  {
+    "id": 1,
+    "name": "Algeria",
+    "group": "j",
+    "abbr": "ALG",
+    "kitColor": "#006233",
+    "isEliminated": false
+  },
+  {
+    "id": 2,
+    "name": "Argentina",
+    "group": "j",
+    "abbr": "ARG",
+    "kitColor": "#75aadb",
+    "isEliminated": false
+  },
+  {
+    "id": 3,
+    "name": "Australia",
+    "group": "d",
+    "abbr": "AUS",
+    "kitColor": "#00843d",
+    "isEliminated": false
+  },
+  {
+    "id": 4,
+    "name": "Austria",
+    "group": "j",
+    "abbr": "AUT",
+    "kitColor": "#ed2939",
+    "isEliminated": false
+  },
+  {
+    "id": 5,
+    "name": "Belgium",
+    "group": "g",
+    "abbr": "BEL",
+    "kitColor": "#ef3340",
+    "isEliminated": false
+  },
+  {
+    "id": 6,
+    "name": "Bosnia and Herzegovina",
+    "group": "b",
+    "abbr": "BIH",
+    "kitColor": "#0033a0",
+    "isEliminated": false
+  },
+  {
+    "id": 7,
+    "name": "Brazil",
+    "group": "c",
+    "abbr": "BRA",
+    "kitColor": "#ffdf00",
+    "isEliminated": false
+  },
+  {
+    "id": 8,
+    "name": "Cabo Verde",
+    "group": "h",
+    "abbr": "CPV",
+    "kitColor": "#003893",
+    "isEliminated": false
+  },
+  {
+    "id": 9,
+    "name": "Canada",
+    "group": "b",
+    "abbr": "CAN",
+    "kitColor": "#d52b1e",
+    "isEliminated": false
+  },
+  {
+    "id": 10,
+    "name": "Colombia",
+    "group": "k",
+    "abbr": "COL",
+    "kitColor": "#fcd116",
+    "isEliminated": false
+  },
+  {
+    "id": 11,
+    "name": "Congo DR",
+    "group": "k",
+    "abbr": "COD",
+    "kitColor": "#007fff",
+    "isEliminated": false
+  },
+  {
+    "id": 12,
+    "name": "C\u00f4te d'Ivoire",
+    "group": "e",
+    "abbr": "CIV",
+    "kitColor": "#f77f00",
+    "isEliminated": false
+  },
+  {
+    "id": 13,
+    "name": "Croatia",
+    "group": "l",
+    "abbr": "CRO",
+    "kitColor": "#d4002a",
+    "isEliminated": false
+  },
+  {
+    "id": 14,
+    "name": "Cura\u00e7ao",
+    "group": "e",
+    "abbr": "CUW",
+    "kitColor": "#002b7f",
+    "isEliminated": false
+  },
+  {
+    "id": 15,
+    "name": "Czechia",
+    "group": "a",
+    "abbr": "CZE",
+    "kitColor": "#d7141a",
+    "isEliminated": false
+  },
+  {
+    "id": 16,
+    "name": "Ecuador",
+    "group": "e",
+    "abbr": "ECU",
+    "kitColor": "#fcd116",
+    "isEliminated": false
+  },
+  {
+    "id": 17,
+    "name": "Egypt",
+    "group": "g",
+    "abbr": "EGY",
+    "kitColor": "#ce1126",
+    "isEliminated": false
+  },
+  {
+    "id": 18,
+    "name": "England",
+    "group": "l",
+    "abbr": "ENG",
+    "kitColor": "red",
+    "isEliminated": false
+  },
+  {
+    "id": 19,
+    "name": "France",
+    "group": "i",
+    "abbr": "FRA",
+    "kitColor": "#002654",
+    "isEliminated": false
+  },
+  {
+    "id": 20,
+    "name": "Germany",
+    "group": "e",
+    "abbr": "GER",
+    "kitColor": "#111827",
+    "isEliminated": false
+  },
+  {
+    "id": 21,
+    "name": "Ghana",
+    "group": "l",
+    "abbr": "GHA",
+    "kitColor": "#fcd116",
+    "isEliminated": false
+  },
+  {
+    "id": 22,
+    "name": "Haiti",
+    "group": "c",
+    "abbr": "HAI",
+    "kitColor": "#00209f",
+    "isEliminated": false
+  },
+  {
+    "id": 23,
+    "name": "IR Iran",
+    "group": "g",
+    "abbr": "IRN",
+    "kitColor": "#239f40",
+    "isEliminated": false
+  },
+  {
+    "id": 24,
+    "name": "Iraq",
+    "group": "i",
+    "abbr": "IRQ",
+    "kitColor": "#00a859",
+    "isEliminated": false
+  },
+  {
+    "id": 25,
+    "name": "Japan",
+    "group": "f",
+    "abbr": "JPN",
+    "kitColor": "#0033a0",
+    "isEliminated": false
+  },
+  {
+    "id": 26,
+    "name": "Jordan",
+    "group": "j",
+    "abbr": "JOR",
+    "kitColor": "#ce1126",
+    "isEliminated": false
+  },
+  {
+    "id": 27,
+    "name": "Korea Republic",
+    "group": "a",
+    "abbr": "KOR",
+    "kitColor": "#c60c30",
+    "isEliminated": false
+  },
+  {
+    "id": 28,
+    "name": "Mexico",
+    "group": "a",
+    "abbr": "MEX",
+    "kitColor": "#006847",
+    "isEliminated": false
+  },
+  {
+    "id": 29,
+    "name": "Morocco",
+    "group": "c",
+    "abbr": "MAR",
+    "kitColor": "#c1272d",
+    "isEliminated": false
+  },
+  {
+    "id": 30,
+    "name": "Netherlands",
+    "group": "f",
+    "abbr": "NED",
+    "kitColor": "#f15a22",
+    "isEliminated": false
+  },
+  {
+    "id": 31,
+    "name": "New Zealand",
+    "group": "g",
+    "abbr": "NZL",
+    "kitColor": "#111827",
+    "isEliminated": false
+  },
+  {
+    "id": 32,
+    "name": "Norway",
+    "group": "i",
+    "abbr": "NOR",
+    "kitColor": "#ba0c2f",
+    "isEliminated": false
+  },
+  {
+    "id": 33,
+    "name": "Panama",
+    "group": "l",
+    "abbr": "PAN",
+    "kitColor": "#d21034",
+    "isEliminated": false
+  },
+  {
+    "id": 34,
+    "name": "Paraguay",
+    "group": "d",
+    "abbr": "PAR",
+    "kitColor": "#d52b1e",
+    "isEliminated": false
+  },
+  {
+    "id": 35,
+    "name": "Portugal",
+    "group": "k",
+    "abbr": "POR",
+    "kitColor": "#c8102e",
+    "isEliminated": false
+  },
+  {
+    "id": 36,
+    "name": "Qatar",
+    "group": "b",
+    "abbr": "QAT",
+    "kitColor": "#8a1538",
+    "isEliminated": false
+  },
+  {
+    "id": 37,
+    "name": "Saudi Arabia",
+    "group": "h",
+    "abbr": "KSA",
+    "kitColor": "#006c35",
+    "isEliminated": false
+  },
+  {
+    "id": 38,
+    "name": "Scotland",
+    "group": "c",
+    "abbr": "SCO",
+    "kitColor": "#003f87",
+    "isEliminated": false
+  },
+  {
+    "id": 39,
+    "name": "Senegal",
+    "group": "i",
+    "abbr": "SEN",
+    "kitColor": "#00853f",
+    "isEliminated": false
+  },
+  {
+    "id": 40,
+    "name": "South Africa",
+    "group": "a",
+    "abbr": "RSA",
+    "kitColor": "#007a4d",
+    "isEliminated": false
+  },
+  {
+    "id": 41,
+    "name": "Spain",
+    "group": "h",
+    "abbr": "ESP",
+    "kitColor": "#c8102e",
+    "isEliminated": false
+  },
+  {
+    "id": 42,
+    "name": "Sweden",
+    "group": "f",
+    "abbr": "SWE",
+    "kitColor": "#fcd116",
+    "isEliminated": false
+  },
+  {
+    "id": 43,
+    "name": "Switzerland",
+    "group": "b",
+    "abbr": "SUI",
+    "kitColor": "#d52b1e",
+    "isEliminated": false
+  },
+  {
+    "id": 44,
+    "name": "Tunisia",
+    "group": "f",
+    "abbr": "TUN",
+    "kitColor": "#e70013",
+    "isEliminated": false
+  },
+  {
+    "id": 45,
+    "name": "T\u00fcrkiye",
+    "group": "d",
+    "abbr": "TUR",
+    "kitColor": "#e30a17",
+    "isEliminated": false
+  },
+  {
+    "id": 46,
+    "name": "Uruguay",
+    "group": "h",
+    "abbr": "URU",
+    "kitColor": "#6cace4",
+    "isEliminated": false
+  },
+  {
+    "id": 47,
+    "name": "USA",
+    "group": "d",
+    "abbr": "USA",
+    "kitColor": "#0a3161",
+    "isEliminated": false
+  },
+  {
+    "id": 48,
+    "name": "Uzbekistan",
+    "group": "k",
+    "abbr": "UZB",
+    "kitColor": "#1a3c8c",
+    "isEliminated": false
+  }
+]

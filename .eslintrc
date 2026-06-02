@@ -11,6 +11,13 @@
     ]
   },
   "overrides": [
+    // Browser globals for ZULABET static scripts
+    {
+      "files": ["src/games/zulaBet/**/*.js", "public/ZULABET/**/*.js"],
+      "env": {
+        "browser": true
+      }
+    },
     // Configuration for mjs files
     {
       "files": ["**/*.mjs"],

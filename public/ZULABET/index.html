@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טופס ZULA BET — USA 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A3161; /* USA Navy */
+            --secondary: #B31942; /* USA Red */
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        img { max-width: 100%; height: auto; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px;
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            -webkit-text-size-adjust: 100%;
+        }
+        .container { max-width: 900px; margin: 0 auto; background: var(--card-bg); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
+        header {
+            background-image: url('coverbar.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 0;
+            text-align: center;
+            border-bottom: 5px solid var(--secondary);
+            height: 320px;
+        }
+        header h1,
+        header p { display: none; }
+        header h1 { font-family: 'Oswald', sans-serif; font-size: 3rem; text-transform: uppercase; letter-spacing: 2px; }
+        .form-section { padding: 30px 40px; border-bottom: 1px solid var(--border); }
+        .section-title { font-family: 'Oswald', sans-serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-title::before { content: ''; display: block; width: 6px; height: 24px; background-color: var(--secondary); border-radius: 3px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95rem; }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 6px; background-color: #f8fafc; font-size: 1rem; }
+        
+        .budget-tracker { background-color: #f1f5f9; border: 2px dashed var(--primary); padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px; }
+        .budget-amount { font-family: 'Oswald', sans-serif; font-size: 2.5rem; color: var(--primary); font-weight: 700; }
+        .budget-amount.danger { color: var(--danger); }
+        
+        .draft-layout { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(300px, 0.85fr); gap: 18px; align-items: start; }
+        .draft-pitch { background: linear-gradient(180deg, #10b981 0%, #059669 100%); border-radius: 22px; padding: 20px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); min-height: 540px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.12); }
+        .draft-pitch::before {
+            content: '';
+            position: absolute;
+            inset: 14px;
+            border: 2px solid rgba(255,255,255,0.35);
+            border-radius: 14px;
+            pointer-events: none;
+        }
+        .draft-pitch::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 14px;
+            bottom: 14px;
+            width: 2px;
+            background: rgba(255,255,255,0.35);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+        .draft-slots { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+        .draft-slot { position: relative; background: rgba(7, 31, 17, 0.24); border: 1px solid rgba(255,255,255,0.2); border-radius: 18px; padding: 18px 14px 16px; color: white; min-height: 260px; display: flex; flex-direction: column; gap: 10px; backdrop-filter: blur(6px); box-shadow: 0 12px 20px rgba(6, 18, 11, 0.18); grid-column: span 2; }
+        .draft-slot:nth-child(1) { grid-row: 1; grid-column: 3 / span 2; }
+        .draft-slot:nth-child(2) { grid-row: 2; grid-column: 2 / span 2; }
+        .draft-slot:nth-child(3) { grid-row: 2; grid-column: 4 / span 2; }
+        .draft-slot:nth-child(4) { grid-row: 3; grid-column: 2 / span 2; }
+        .draft-slot:nth-child(5) { grid-row: 3; grid-column: 4 / span 2; }
+        .draft-slot:nth-child(6) { grid-row: 4; grid-column: 3 / span 2; }
+        .draft-slot.empty { align-items: center; justify-content: center; text-align: center; }
+        .slot-number {
+            position: absolute;
+            top: 10px;
+            right: -58px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            opacity: 0.85;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .shirt-card {
+            width: 100%;
+            max-width: 84px;
+            aspect-ratio: 0.92;
+            margin: 0 auto 8px;
+            position: relative;
+            background: var(--shirt-color, #1d4ed8);
+            clip-path: polygon(20% 0, 36% 0, 44% 10%, 56% 10%, 64% 0, 80% 0, 100% 18%, 84% 35%, 84% 100%, 16% 100%, 16% 35%, 0 18%);
+            box-shadow: 0 14px 25px rgba(0, 0, 0, 0.2);
+        }
+        .shirt-card::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 12%;
+            width: 30%;
+            height: 18%;
+            background: rgba(255,255,255,0.9);
+            clip-path: polygon(10% 0, 90% 0, 70% 100%, 30% 100%);
+            transform: translateX(-50%);
+        }
+        .player-name { font-family: 'Oswald', sans-serif; font-size: 1.05rem; line-height: 1.1; text-align: center; margin-top: 2px; }
+        .player-meta { text-align: center; font-size: 0.82rem; line-height: 1.2; opacity: 0.92; }
+        .player-cost { font-weight: 700; color: rgba(255,255,255,0.9); text-align: center; font-size: 0.92rem; }
+        .slot-remove, .pool-add, .pool-chip, .draft-clear {
+            border: none; border-radius: 10px; font-family: 'Oswald', sans-serif; text-transform: uppercase; cursor: pointer;
+        }
+        .slot-remove, .pool-add, .draft-clear, .match-choice, .submit-btn { min-height: 44px; }
+        .slot-remove { background: rgba(255,255,255,0.18); color: white; padding: 10px 12px; }
+        .slot-remove:hover { background: rgba(255,255,255,0.28); }
+        .pool-panel { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08); position: sticky; top: 18px; }
+        .pool-title { font-family: 'Oswald', sans-serif; font-size: 1.35rem; color: var(--primary); margin-bottom: 12px; }
+        .pool-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
+        .pool-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; color: var(--text-muted); font-size: 0.95rem; }
+        .pool-list { display: flex; flex-direction: column; gap: 10px; max-height: 540px; overflow: auto; padding-right: 2px; }
+        .pool-item { display: grid; grid-template-columns: 44px 1fr auto; gap: 10px; align-items: center; border: 1px solid var(--border); border-radius: 14px; padding: 10px 12px; background: #f8fafc; }
+        .pool-shirt { width: 44px; height: 44px; border-radius: 12px; background: var(--shirt-color, #1d4ed8); position: relative; clip-path: polygon(20% 0, 36% 0, 44% 10%, 56% 10%, 64% 0, 80% 0, 100% 18%, 84% 35%, 84% 100%, 16% 100%, 16% 35%, 0 18%); }
+        .pool-shirt::before { content: ''; position: absolute; left: 50%; top: 12%; width: 32%; height: 20%; background: rgba(255,255,255,0.92); clip-path: polygon(10% 0, 90% 0, 70% 100%, 30% 100%); transform: translateX(-50%); }
+        .pool-name { font-weight: 700; color: var(--text-main); }
+        .pool-sub { font-size: 0.88rem; color: var(--text-muted); }
+        .pool-add { background: var(--primary); color: white; padding: 10px 14px; }
+        .pool-add:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .pool-chip { background: #e0e7ff; color: var(--primary); padding: 8px 10px; font-size: 0.82rem; }
+        .draft-clear { background: #e2e8f0; color: var(--text-main); padding: 10px 14px; }
+        .pool-empty { padding: 16px; border-radius: 12px; border: 1px dashed var(--border); text-align: center; color: var(--text-muted); background: #f8fafc; }
+        .scoring-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-top: 18px; }
+        .scoring-title { font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+        .scoring-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        .scoring-item { background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+        .scoring-item h4 { margin: 0 0 8px; font-size: 0.95rem; color: var(--primary); }
+        .scoring-item ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.9rem; color: var(--text-main); }
+        @media (max-width: 1100px) {
+            .draft-layout { grid-template-columns: 1fr; }
+            .pool-panel { position: static; }
+            .draft-slots { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+            .draft-slot { grid-column: span 2; }
+            .draft-slot:nth-child(4) { grid-column: 2 / span 2; }
+            .draft-slot:nth-child(5) { grid-column: 4 / span 2; }
+        }
+        @media (max-width: 560px) {
+            .draft-pitch { padding: 12px; min-height: 400px; border-radius: 18px; }
+            .draft-pitch::before { inset: 10px; }
+            .draft-pitch::after { top: 10px; bottom: 10px; }
+            .draft-slots { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+            .draft-slot {
+                grid-column: span 2 !important;
+                min-height: 170px;
+                padding: 12px 10px 10px;
+                border-radius: 14px;
+                gap: 8px;
+            }
+            .draft-slot:nth-child(1) { grid-row: 1; grid-column: 3 / span 2 !important; }
+            .draft-slot:nth-child(2) { grid-row: 2; grid-column: 2 / span 2 !important; }
+            .draft-slot:nth-child(3) { grid-row: 2; grid-column: 4 / span 2 !important; }
+            .draft-slot:nth-child(4) { grid-row: 3; grid-column: 2 / span 2 !important; }
+            .draft-slot:nth-child(5) { grid-row: 3; grid-column: 4 / span 2 !important; }
+            .draft-slot:nth-child(6) { grid-row: 4; grid-column: 3 / span 2 !important; }
+            .slot-number { right: 10px; top: 8px; font-size: 0.78rem; }
+            .shirt-card { max-width: 62px; margin-bottom: 4px; }
+            .player-name { font-size: 0.92rem; }
+            .player-meta { font-size: 0.74rem; }
+            .player-cost { font-size: 0.82rem; }
+            .slot-remove { padding: 8px 10px; min-height: 38px; font-size: 0.8rem; }
+            .pool-controls { grid-template-columns: 1fr; }
+            .pool-item { grid-template-columns: 44px 1fr; }
+            .pool-add { grid-column: 1 / -1; }
+        }
+        
+        .group-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .group-title { font-weight: 700; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .group-note { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; }
+        .group-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+        .group-item { display: grid; grid-template-columns: 28px auto 1fr auto; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; background: #ffffff; border: 1px solid var(--border); cursor: grab; }
+        .group-item:active { cursor: grabbing; }
+        .group-item.dragging { opacity: 0.6; border-style: dashed; }
+        .group-rank { font-weight: 700; color: var(--text-muted); text-align: center; }
+        .group-flag img { width: 24px; height: 18px; object-fit: cover; border-radius: 3px; display: block; }
+        .group-handle { color: var(--text-muted); font-size: 1.1rem; letter-spacing: 1px; }
+        .match-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 12px; }
+        .match-title { font-weight: 700; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+        .match-meta { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px; }
+        .match-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: center; }
+        .match-choice { border: 1px solid var(--border); border-radius: 14px; background: #ffffff; padding: 8px; cursor: pointer; font-weight: 700; display: flex; align-items: center; justify-content: center; min-height: 70px; }
+        .match-choice.active { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(10, 49, 97, 0.15); }
+        .match-choice small { font-weight: 500; color: var(--text-muted); }
+        .match-flag { width: 74px; height: 48px; object-fit: cover; border-radius: 6px; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12); }
+        .match-flag--title { width: 40px; height: 26px; }
+        .match-draw { font-size: 1.6rem; }
+
+        .outcome-section { direction: rtl; }
+        .outcome-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .outcome-card {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #ffffff;
+            padding: 12px;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+        }
+        .outcome-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .outcome-team {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .outcome-flag { width: 34px; height: 22px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1); }
+        .outcome-current {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-align: left;
+        }
+        .outcome-stage-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .outcome-stage-btn {
+            border: 1px solid var(--border);
+            background: #f8fafc;
+            border-radius: 10px;
+            min-height: 42px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            padding: 8px 6px;
+            cursor: pointer;
+        }
+        .outcome-stage-btn.active {
+            border-color: var(--primary);
+            background: #dbeafe;
+            color: var(--primary);
+            box-shadow: inset 0 0 0 1px rgba(10, 49, 97, 0.16);
+        }
+        
+        .submit-btn { background-color: var(--secondary); color: white; border: none; padding: 16px 32px; font-size: 1.2rem; font-family: 'Oswald', sans-serif; text-transform: uppercase; border-radius: 6px; cursor: pointer; width: 100%; }
+        .submit-btn:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+        .form-status { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-weight: 600; display: none; }
+        .form-status.success { display: block; background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .form-status.error { display: block; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+        @media (max-width: 980px) {
+            body { padding: 16px; }
+            .form-section { padding: 24px; }
+            header { height: 260px; }
+            .section-title { font-size: 1.55rem; }
+        }
+
+        @media (max-width: 820px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .match-choices { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+            .match-choice { min-height: 64px; }
+            .draft-pitch { min-height: 460px; }
+            .draft-slot { min-height: 220px; }
+            .pool-list { max-height: 420px; }
+        }
+
+        @media (max-width: 720px) {
+            body { padding: 12px; }
+            .container { border-radius: 10px; }
+            header { height: 220px; }
+            .form-section { padding: 20px; }
+            .budget-amount { font-size: 2.1rem; }
+            .outcome-stage-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .draft-layout { gap: 14px; }
+            .draft-pitch { padding: 16px; min-height: 420px; }
+            .draft-slot { min-height: 200px; padding: 14px 12px; }
+            .pool-panel { padding: 14px; }
+            .pool-title { font-size: 1.2rem; }
+            .pool-list { max-height: 360px; }
+            .group-item { grid-template-columns: 24px auto 1fr auto; gap: 8px; }
+            .group-flag img { width: 20px; height: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            header { height: 180px; }
+            .section-title { font-size: 1.35rem; }
+            .budget-amount { font-size: 1.85rem; }
+            .match-flag { width: 56px; height: 36px; }
+            .match-choice { min-height: 56px; }
+            .slot-number { font-size: 0.8rem; }
+        }
+
+        @media (min-width: 900px) {
+            .outcome-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .outcome-stage-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>ZULA BET</h1>
+        <p>הימורים בין חברים — USA 2026</p>
+    </header>
+
+    <form id="zulaForm">
+        <!-- Section 1: User -->
+        <div class="form-section">
+            <h2 class="section-title">שם</h2>
+            <div class="input-group">
+                <label for="userName"></label>
+                <input type="text" id="userName" required placeholder="הכנס את שמך">
+            </div>
+        </div>
+
+        <!-- Section 2: Fixed Franchise Draft Feature -->
+        <div class="form-section">
+            <h2 class="section-title">Fantasy Draft</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">בחרו 5 שחקנים. מיינו לפי מחיר, סננו לפי מדינה, והסירו שחקנים בכל רגע שתרצו לשנות את ההרכב.</p>
+            <div class="budget-tracker">
+                <div style="font-weight: 600; text-transform: uppercase;">Remaining Balance</div>
+                <div class="budget-amount" id="budgetDisplay">$100M</div>
+            </div>
+            <div class="draft-layout">
+                <div class="draft-pitch">
+                    <div class="draft-slots" id="playerDraftRows"></div>
+                </div>
+                <aside class="pool-panel">
+                    <div class="pool-title">מאגר שחקנים</div>
+                    <div class="pool-controls">
+                        <select id="sortByPrice">
+                            <option value="high">מחיר: מהגבוה לנמוך</option>
+                            <option value="low">מחיר: מהנמוך לגבוה</option>
+                        </select>
+                        <select id="filterCountry">
+                            <option value="all">כל המדינות</option>
+                        </select>
+                        <select id="filterPosition">
+                            <option value="all">כל העמדות</option>
+                            <option value="GK">שוער</option>
+                            <option value="DEF">מגן</option>
+                            <option value="MID">קשר</option>
+                            <option value="FWD">חלוץ</option>
+                        </select>
+                    </div>
+                    <div class="pool-meta">
+                        <div id="poolCount">מוצגים 0 שחקנים</div>
+                        <button type="button" class="draft-clear" id="clearDraftBtn">נקה הכל</button>
+                    </div>
+                    <div class="pool-list" id="playerPoolList"></div>
+                </aside>
+            </div>
+            <div class="scoring-box" dir="rtl">
+                <div class="scoring-title">שיטת ניקוד</div>
+                <div class="scoring-grid">
+                    <div class="scoring-item">
+                        <h4>כל השחקנים</h4>
+                        <ul>
+                            <li>הופעה עד 60 דק' +1, הופעה 60+ דק' +2 סה"כ</li>
+                            <li>בישול +3, צהוב -1, אדום -2, שער עצמי -2</li>
+                            <li>זכייה בפנדל +2, גרימת פנדל -1</li>
+                        </ul>
+                    </div>
+                    <div class="scoring-item">
+                        <h4>שוערים</h4>
+                        <ul>
+                            <li>שער נקי (60+ דק') +5</li>
+                            <li>שער ראשון שסופגים 0, כל שער נוסף -1</li>
+                            <li>שער +9, הצלת פנדל +3, כל 3 הצלות +1</li>
+                        </ul>
+                    </div>
+                    <div class="scoring-item">
+                        <h4>מגנים</h4>
+                        <ul>
+                            <li>שער נקי (60+ דק') +5</li>
+                            <li>שער ראשון שסופגים 0, כל שער נוסף -1</li>
+                            <li>שער +7</li>
+                        </ul>
+                    </div>
+                    <div class="scoring-item">
+                        <h4>קשרים</h4>
+                        <ul>
+                            <li>שער נקי (60+ דק') +1</li>
+                            <li>שער +6, כל 3 תיקולים +1</li>
+                            <li>כל 2 מצבים שנוצרו +1</li>
+                        </ul>
+                    </div>
+                    <div class="scoring-item">
+                        <h4>חלוצים</h4>
+                        <ul>
+                            <li>שער +5</li>
+                            <li>כל 2 בעיטות למסגרת +1</li>
+                        </ul>
+                    </div>
+                    <div class="scoring-item">
+                        <h4>בונוסים</h4>
+                        <ul>
+                            <li>שער בבעיטה חופשית ישירה +1 בנוסף לשער</li>
+                            <li>בונוס סקאוטינג: 4+ נק' במשחק ושחקן נבחר בפחות מ-5% מהקבוצות, +2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Group Stage Outcomes -->
+        <div class="form-section">
+            <h2 class="section-title">תוצאות שלב הבתים</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">גררו ושחררו כדי לקבוע את הסדר הסופי (מקום 1 עד 4) בכל בית.</p>
+            
+            <div id="groupStandingsContainer"></div>
+        </div>
+
+        <!-- Section 4: Real Player Awards Dropdowns -->
+        <div class="form-section">
+            <h2 class="section-title">תארי הטורניר</h2>
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="goldenBoot">מלך השערים (נעל הזהב)</label>
+                    <select id="goldenBoot" required></select>
+                </div>
+                <div class="input-group">
+                    <label for="goldenGlove">שוער מצטיין (כפפת הזהב)</label>
+                    <select id="goldenGlove" required></select>
+                </div>
+                <div class="input-group">
+                    <label for="goldenBall">שחקן מצטיין (כדור הזהב)</label>
+                    <select id="goldenBall" required></select>
+                </div>
+                <div class="input-group">
+                    <label for="bestYoung">שחקן צעיר מצטיין</label>
+                    <select id="bestYoung" required></select>
+                </div>
+                <div class="input-group">
+                    <label for="winningNation">הנבחרת שתזכה במונדיאל</label>
+                    <select id="winningNation" required></select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Marquee Match Predictions -->
+        <div class="form-section">
+            <h2 class="section-title">ניחושי משחקי ענק</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">בחרו את תוצאת המשחקים הגדולים בשלב הבתים.</p>
+            <div id="marqueeMatchesContainer"></div>
+        </div>
+
+        <!-- Section 6: Tournament Outcomes -->
+        <div class="form-section outcome-section">
+            <h2 class="section-title">לאן כל נבחרת תגיע בטורניר?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">בחרו לכל נבחרת את השלב אליו לדעתכם תגיע.</p>
+            <div id="outcomeGrid"></div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-section" style="text-align: center;">
+            <button type="submit" class="submit-btn" id="submitBtn">שלח טופס</button>
+            <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        </div>
+    </form>
+</div>
+
+<script src="player-data.js"></script>
+<script>
+    const TOTAL_BUDGET = 100;
+    const SUPABASE_URL = "https://majvyywjsdylmrngfcfv.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_YBpjbffaGW5QRzNJfU62QQ_hZ87_hTT";
+    const SUPABASE_TABLE = "guesses";
+
+    let playerPool = [
+        { name: "-- Select Player --", nation: "", position: "", value: 0, shirtColor: "#334155" }
+    ];
+
+    const slotPositions = ['GK', 'DEF', 'DEF', 'MID', 'MID', 'FWD'];
+    const draftCount = slotPositions.length;
+    const selectedPlayers = Array(draftCount).fill(null);
+    let playerSort = 'high';
+    let countryFilter = 'all';
+    let positionFilter = 'all';
+
+    // Award Nominees Dropdown Arrays
+    const goldenBallRaw = `
+Kane, Harry
+8.00
+
+Yamal, Lamine
+9.00
+
+Mbappe, Kylian
+11.00
+
+Olise, Michael
+11.00
+
+Messi, Lionel
+11.00
+
+Junior, Vinicius
+15.00
+
+Rice, Declan
+21.00
+
+Raphinha
+21.00
+
+Fernandes, Bruno
+21.00
+
+Dembele, Ousmane
+26.00
+
+Oyarzabal, Mikiel
+26.00
+
+Haaland, Erling Braut
+26.00
+
+Bellingham, Jude
+26.00
+
+Rodri
+26.00
+
+Pedri
+26.00
+
+Vitinha
+26.00
+
+Cherki, Mathis Rayan
+26.00
+
+Ruiz, Fabian
+36.00
+
+de Sousa, Endrick Moreira
+36.00
+
+Ronaldo, Cristiano
+36.00
+
+Neymar Jr
+36.00
+
+Silva, Bernardo
+36.00
+
+Doku, Jeremy
+41.00
+
+Alvarez, Julian
+41.00
+
+Doue, Desire
+41.00
+
+Hakimi, Achraf
+51.00
+
+Martinez, Lautaro
+51.00
+
+Van Dijk, Virgil
+51.00
+
+Saka, Bukayo
+51.00
+
+Wirtz, Florian Richard
+51.00
+
+Saliba, William
+51.00
+
+Palmer, Cole
+51.00
+
+Magalhaes, Gabriel
+51.00
+
+Valverde, Federico
+66.00
+
+Olmo, Dani
+66.00
+
+Isak, Alexander
+66.00
+
+Mendes, Nuno
+66.00
+
+Diaz, Luis
+66.00
+
+Ibanez Zubimendi, Martin
+66.00
+
+Rogers, Morgan
+66.00
+
+O Reilly, Nico
+66.00
+
+De Bruyne, Kevin
+66.00
+
+Xhaka, Granit
+66.00
+
+Marquinhos
+66.00
+
+Odegaard, Martin
+66.00
+
+Salah, Mohamed
+66.00
+
+Kante, N’Golo
+66.00
+
+Kimmich, Joshua
+66.00
+
+Dias, Ruben
+81.00
+
+Havertz, Kai
+81.00
+
+Guler, Arda
+81.00
+
+Lukaku, Romelu
+81.00
+
+Calhanoglu, Hakan
+81.00
+
+Rudiger, Antonio
+81.00
+
+Casemiro
+101.00
+
+Tielemans, Youri
+101.00
+
+Akanji, Manuel
+101.00
+
+de Jong, Frenkie
+101.00
+
+Pulisic, Christian
+101.00
+
+Modric, Luka
+101.00
+
+Trossard, Leandro
+101.00
+
+Torres, Ferran
+101.00
+
+McTominay, Scott
+101.00
+
+Gakpo, Cody
+101.00
+
+Guimaraes, Bruno
+101.00
+
+Leao, Rafael
+101.00
+
+Ndiaye, Iliman
+101.00
+
+Fernandez, Enzo
+101.00
+
+Mac Allister, Alexis
+101.00
+
+Araujo Da Silva, Ronald Federico
+101.00
+
+Barcola, Bradley
+101.00
+
+Cubarsi, Pau
+101.00
+
+Yildiz, Kenan
+101.00
+
+Guehi, Marc
+101.00
+
+Woltemade, Nick
+101.00
+
+Huijsen, Dean
+101.00
+
+Thiago, Igor
+101.00
+
+Karl, Lennart
+101.00
+
+Suarez, Luis
+101.00
+
+Rodriguez, James
+101.00
+
+Mane, Sadio
+101.00
+
+Alexander-Arnold, Trent
+151.00
+
+Thuram, Marcus
+151.00
+
+Cunha, Matheus
+151.00
+
+Davies, Alphonso
+151.00
+
+McGinn, John
+151.00
+
+Lomba, Pedro
+151.00
+
+Gravenberch, Ryan
+151.00
+
+Timber, Jurrien
+151.00
+
+Marmoush, Omar
+151.00
+
+Nunez, Darwin
+151.00
+
+Openda, Lois
+151.00
+
+Ramos, Goncalo
+151.00
+
+Tchouameni, Aurelien
+151.00
+
+Caicedo, Moises
+151.00
+
+Gordon, Anthony
+151.00
+
+Neves, Joao
+151.00
+
+Undav, Deniz
+151.00
+
+Eze, Eberechi
+151.00
+
+Konsa, Ezri
+151.00
+
+Gyokeres, Viktor
+151.00
+
+Munoz, Daniel
+151.00
+
+Depay, Memphis
+151.00
+
+Jimenez, Raul
+151.00
+
+Gimenez, Jose Maria
+151.00
+
+Mahrez, Riyad
+151.00
+
+Sane, Leroy
+151.00
+
+Robertson, Andy
+201.00
+
+Dumfries, Denzel
+201.00
+
+David, Jonathan
+201.00
+
+Diaz, Brahim
+201.00
+
+Lang, Noa
+201.00
+
+Pepi, Ricardo
+201.00
+
+Brobbey, Brian
+201.00
+
+Semenyo, Antoine
+201.00
+
+Strand Larsen, Jorgen
+201.00
+
+Bobb, Oscar
+201.00
+
+Balogun, Folarin
+201.00
+
+Alderete, Omar
+201.00
+
+Elanga, Anthony
+201.00
+
+Dzeko, Edin
+201.00
+
+Alaba, David
+201.00
+
+Aaronson, Brenden
+251.00
+
+Ugarte, Manuel
+251.00
+
+Adams, Tyler
+251.00
+
+McKennie, Weston
+251.00
+
+Robinson, Antonee
+251.00
+
+Lee, Kang-In
+251.00
+
+Diallo, Amad
+251.00
+
+Gomez, Diego
+251.00
+
+Paez, Kendry
+251.00
+
+Son, Heung-Min
+251.00
+
+Valencia, Enner
+251.00
+
+Embolo, Breel
+251.00
+
+Schick, Patrik
+251.00
+
+Williams, Inaki
+301.00
+
+Soucek, Tomas
+501.00
+
+Reyna, Giovanni
+501.00
+
+Khusanov, Abduqodir
+501.00
+`;
+
+    const goldenBallNominees = (() => {
+        const lines = goldenBallRaw
+            .split(/\r?\n/)
+            .map(line => line.trim())
+            .filter(Boolean);
+        const players = [{ name: "-- בחר שחקן --", odds: "" }];
+
+        for (let i = 0; i < lines.length; i += 2) {
+            players.push({
+                name: lines[i],
+                odds: lines[i + 1] || ""
+            });
+        }
+
+        return players;
+    })();
+
+    const goldenBootRaw = `
+Kylian Mbappe
+7.00
+
+Harry Kane
+8.00
+
+Lionel Messi
+13.00
+
+Mikel Oyarzabal
+15.00
+
+Erling Haaland
+15.00
+
+Lamine Yamal
+17.00
+
+Ousmane Dembele
+21.00
+
+Cristiano Ronaldo
+21.00
+
+Lautaro Martinez
+26.00
+
+Vinicius Junior
+26.00
+
+Raphinha
+31.00
+
+Kai Havertz
+36.00
+
+Ollie Watkins
+36.00
+
+Bukayo Saka
+36.00
+
+Julian Alvarez
+36.00
+
+Mikel Merino
+36.00
+
+Nick Woltemade
+36.00
+
+Suarez, Luis Javier
+36.00
+
+Igor Thiago
+36.00
+
+Romelu Lukaku
+36.00
+
+Ferran Torres
+41.00
+
+Jude Bellingham
+41.00
+
+Cody Gakpo
+41.00
+
+Florian Wirtz
+41.00
+
+Michael Olise
+41.00
+
+Neymar Jr
+41.00
+
+Bruno Fernandes
+41.00
+
+Jean-Philippe Mateta
+51.00
+
+Dani Olmo
+51.00
+
+Donyell Malen
+51.00
+
+Jamal Musiala
+51.00
+
+Luis Diaz
+51.00
+
+Goncalo Ramos
+51.00
+
+Nico Williams
+51.00
+
+Viktor Gyokeres
+51.00
+
+Desire Doue
+51.00
+
+Morgan Rogers
+51.00
+
+Memphis Depay
+51.00
+
+Mohamed Salah
+51.00
+
+Rashford, Marcus
+51.00
+
+Cunha, Matheus
+66.00
+
+Alexander Isak
+66.00
+
+Leandro Trossard
+66.00
+
+Doku, Jeremy
+66.00
+
+Nunez, Darwin
+66.00
+
+Lois Openda
+66.00
+
+de Ketelaere, Charles
+66.00
+
+Eze, Eberechi
+66.00
+
+De Bruyne, Kevin
+66.00
+
+Sane, Leroy
+66.00
+
+Christian Pulisic
+81.00
+
+Leao, Rafael
+81.00
+
+Gordon, Anthony
+81.00
+
+Bradley Barcola
+81.00
+
+Undav, Deniz
+81.00
+
+de Sousa, Endrick Moreira
+81.00
+
+Sorloth, Alexander
+81.00
+
+Edin Dzeko
+81.00
+
+Valencia, Enner
+81.00
+
+Mane, Sadio
+81.00
+
+Marmoush, Omar
+101.00
+
+Jonathan David
+101.00
+
+Pedri
+101.00
+
+Martinelli, Gabriel
+101.00
+
+Ayase Ueda
+101.00
+
+Lang, Noa
+101.00
+
+Pepi, Ricardo
+101.00
+
+Nicolas Jackson
+101.00
+
+Wright, Haji
+101.00
+
+Semenyo, Antoine
+101.00
+
+Guler, Arda
+101.00
+
+Kenan Yildiz
+101.00
+
+Duran, Jhon
+101.00
+
+Gonzales, Armando
+101.00
+
+Folarin Balogun
+101.00
+
+Promise, David
+101.00
+
+Karl, Lennart
+101.00
+
+Raul Jimenez
+101.00
+
+Rodriguez, James
+101.00
+
+Son, Heung-Min
+101.00
+
+Breet Embolo
+101.00
+
+Lozano, Hirving
+151.00
+
+Taremi, Mehdi
+151.00
+
+Ayoub El Kaabi
+151.00
+
+Afif, Akram
+151.00
+
+Lukebakio Ngandoli, Dodi
+151.00
+
+Alphonso Davies
+151.00
+
+McTominay, Scott
+151.00
+
+Ndoye, Dan
+151.00
+
+Denzel Dumfries
+151.00
+
+Larin, Cyle
+151.00
+
+Diaz, Brahim
+151.00
+
+Orbelin Pineda
+151.00
+
+Rodriguez, Brian
+151.00
+
+Maeda, Daizen
+151.00
+
+Fernandez, Enzo
+151.00
+
+Lee, Kang-In
+151.00
+
+Strand Larsen, Jorgen
+151.00
+
+Bobb, Oscar
+151.00
+
+Nusa, Antonio
+151.00
+
+Igamane, Hamza
+151.00
+
+Xhaka, Granit
+151.00
+
+Mahrez, Riyad
+151.00
+
+Arnautovic, Marko
+151.00
+
+Kramaric, Andrej
+151.00
+
+En-Nesyri, Youssef
+151.00
+
+Hwang, Hee-Chan
+201.00
+
+Valverde, Federico
+201.00
+
+Sarr, Ismaila
+201.00
+
+Minamino, Takumi
+201.00
+
+Vlasic, Nikola
+201.00
+
+Reyna, Giovanni
+201.00
+
+Pellistri, Facundo
+201.00
+
+O Reilly, Nico
+201.00
+
+Wood, Chris
+201.00
+
+Odegaard, Martin
+201.00
+
+Calhanoglu, Hakan
+201.00
+
+Al Dawsari, Salem
+251.00
+
+Rice, Declan
+251.00
+
+Adams, Che
+251.00
+
+Al-Shehri, Saleh
+251.00
+
+Dykes, Lyndon
+301.00
+
+Christie, Ryan
+301.00
+
+Kamada, Daichi
+301.00
+
+Enciso, Julio Cesar
+301.00
+
+Shomurodov, Eldor
+501.00
+
+McGinn, John
+501.00
+
+Aaronson, Brenden
+501.00
+
+Boyle, Martin
+501.00
+
+Foster, Lyle
+501.00
+
+Irankunda, Nestory
+501.00
+
+Waine, Ben
+1,001.00
+`;
+
+    const goldenBootNominees = (() => {
+        const lines = goldenBootRaw
+            .split(/\r?\n/)
+            .map(line => line.trim())
+            .filter(Boolean);
+        const players = [{ name: "-- בחר שחקן --", odds: "" }];
+
+        for (let i = 0; i < lines.length; i += 2) {
+            players.push({
+                name: lines[i],
+                odds: lines[i + 1] || ""
+            });
+        }
+
+        return players;
+    })();
+
+    function normalizeNameOrder(name) {
+        if (!name || !name.includes(',')) {
+            return name;
+        }
+
+        const parts = name.split(',');
+        const lastName = (parts.shift() || '').trim();
+        const firstName = parts.join(',').trim();
+        if (!firstName || !lastName) {
+            return name;
+        }
+
+        return `${firstName} ${lastName}`.replace(/\s+/g, ' ').trim();
+    }
+
+    const youngNominees = [
+        "-- בחר שחקן --",
+        "Yamal, Lamine",
+        "Doue, Desire",
+        "Zaire-Emery, Warren",
+        "Karl, Lennart",
+        "O Reilly, Nico",
+        "Guler, Arda",
+        "de Sousa, Endrick Moreira",
+        "Cubarsi, Pau",
+        "Nusa, Antonio",
+        "Diomande, Yan",
+        "Yildiz, Kenan",
+        "Bergvall, Lucas",
+        "Mainoo, Kobbie",
+        "Vitor, Rayan",
+        "Bajraktarevic, Esmir",
+        "Maza, Ibrahim",
+        "Mbaye, Ibrahim",
+        "Kilicsoy, Semih",
+        "Hato, Jorrel",
+        "Alajbegovic, Kerim",
+        "Vuskovic, Luka",
+        "Paez, Kendry",
+        "Talbi, Chemsdine",
+        "Wanner, Paul",
+        "Irankunda, Nestory",
+        "Manzambi, Johan",
+        "Seys, Joaquin",
+        "Ayari, Khalil",
+        "Oulai, Christ",
+        "Sarr, Mamadou",
+        "Diao, Assane",
+        "Doak, Ben",
+        "Arevalo, Jeremy",
+        "El Mourabet, Samir",
+        "Yirenkyi, Caleb",
+        "Zabiri, Yassir",
+        "Yassine, Gessime",
+        "Bounida, Rayane"
+    ];
+
+    const goalkeeperNominees = [
+        "-- בחר שוער --",
+        "Martinez, Damian",
+        "Simon, Unai",
+        "Becker, Alisson",
+        "Ederson",
+        "Maignan, Mike",
+        "Pickford, Jordan",
+        "Raya, David",
+        "Costa, Diogo",
+        "Baumann, Oliver",
+        "Garcia, Joan",
+        "Verbruggen, Bart",
+        "Courtois, Thibaut",
+        "Lammens, Senne",
+        "Nyland, Orjan",
+        "Freese, Matt",
+        "Kobel, Gregor",
+        "Vargas, Camilo",
+        "Rochet, Sergio",
+        "Bounou, Yassine",
+        "Galindez, Hernan",
+        "Malagon, Luis",
+        "Suzuki, Zion",
+        "Ochoa, Guillermo",
+        "Livakovic, Dominik",
+        "Cakir, Ugurcan",
+        "Mendy, Edouard",
+        "Johansson, Viktor",
+        "St. Clair, Dayne",
+        "Schlager, Alexander",
+        "Nordfeldt, Kristoffer",
+        "Gordon, Craig",
+        "Ryan, Mathew"
+    ];
+
+    const filterCountry = document.getElementById('filterCountry');
+
+    function refreshCountryOptions() {
+        const options = [...new Set(playerPool
+            .filter(player => player.value > 0)
+            .map(player => player.nation)
+            .filter(Boolean)
+        )].sort();
+
+        filterCountry.innerHTML = '<option value="all">כל המדינות</option>';
+        options.forEach(country => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.text = country;
+            filterCountry.appendChild(option);
+        });
+    }
+
+    const sortByPrice = document.getElementById('sortByPrice');
+    const filterPosition = document.getElementById('filterPosition');
+    sortByPrice.addEventListener('change', () => {
+        playerSort = sortByPrice.value;
+        renderPool();
+    });
+
+    filterCountry.addEventListener('change', () => {
+        countryFilter = filterCountry.value;
+        renderPool();
+    });
+
+    filterPosition.addEventListener('change', () => {
+        positionFilter = filterPosition.value;
+        renderPool();
+    });
+
+    document.getElementById('clearDraftBtn').addEventListener('click', () => {
+        for (let i = 0; i < selectedPlayers.length; i += 1) {
+            selectedPlayers[i] = null;
+        }
+        renderPitch();
+        renderPool();
+        updateBudgetTracker();
+    });
+
+    function getAvailablePlayers() {
+        return playerPool
+            .filter(player => player.value > 0)
+            .filter(player => countryFilter === 'all' || player.nation === countryFilter)
+            .filter(player => positionFilter === 'all' || player.position === positionFilter)
+            .slice()
+            .sort((left, right) => playerSort === 'high' ? right.value - left.value : left.value - right.value);
+    }
+
+    function getOpenSlotIndexForPosition(position) {
+        return selectedPlayers.findIndex((entry, index) => !entry && slotPositions[index] === position);
+    }
+
+    function getSelectedTotal() {
+        return selectedPlayers.reduce((sum, player) => sum + (player ? player.value : 0), 0);
+    }
+
+    function renderPitch() {
+        const rowsContainer = document.getElementById('playerDraftRows');
+        rowsContainer.innerHTML = '';
+
+        selectedPlayers.forEach((player, index) => {
+            const slotRole = slotPositions[index];
+            const roleLabelMap = {
+                GK: 'שוער',
+                DEF: 'מגן',
+                MID: 'קשר',
+                FWD: 'חלוץ'
+            };
+            const slotRoleLabel = roleLabelMap[slotRole] || slotRole;
+            const row = document.createElement('div');
+            row.className = `draft-slot ${player ? '' : 'empty'}`;
+
+            if (!player) {
+                row.innerHTML = `
+                    <div class="slot-number">${slotRoleLabel}</div>
+                    <div class="player-name">עמדה פנויה</div>
+                    <div class="player-meta">בחרו ${slotRoleLabel} מהמאגר</div>
+                `;
+                rowsContainer.appendChild(row);
+                return;
+            }
+
+            row.innerHTML = `
+                <div class="slot-number">${slotRoleLabel}</div>
+                <br>
+                <div class="shirt-card" style="--shirt-color: ${player.shirtColor};"></div>
+                <div class="player-name">${player.name}</div>
+                <div class="player-meta">${player.nation} · ${player.position || '-'} · ${player.value}M</div>
+                <div class="player-cost">${player.value}M</div>
+            `;
+
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'slot-remove';
+            removeButton.innerText = 'הסר';
+            removeButton.addEventListener('click', () => {
+                selectedPlayers[index] = null;
+                renderPitch();
+                renderPool();
+                updateBudgetTracker();
+            });
+
+            row.appendChild(removeButton);
+            rowsContainer.appendChild(row);
+        });
+    }
+
+    function addPlayerToDraft(playerName) {
+        const player = playerPool.find(entry => entry.name === playerName);
+        if (!player) {
+            return;
+        }
+
+        if (selectedPlayers.some(entry => entry && entry.name === playerName)) {
+            return;
+        }
+
+        const emptySlot = getOpenSlotIndexForPosition(player.position);
+        if (emptySlot === -1) {
+            return;
+        }
+
+        selectedPlayers[emptySlot] = player;
+        renderPitch();
+        renderPool();
+        updateBudgetTracker();
+    }
+
+    function renderPool() {
+        const poolList = document.getElementById('playerPoolList');
+        const poolCount = document.getElementById('poolCount');
+        const selectedNames = new Set(selectedPlayers.filter(Boolean).map(player => player.name));
+        const availablePlayers = getAvailablePlayers().filter(player => !selectedNames.has(player.name));
+
+        poolList.innerHTML = '';
+        poolCount.innerText = `מוצגים ${availablePlayers.length} שחקנים`;
+
+        if (availablePlayers.length === 0) {
+            const emptyState = document.createElement('div');
+            emptyState.className = 'pool-empty';
+            emptyState.innerText = 'אין שחקנים שמתאימים לסינון.';
+            poolList.appendChild(emptyState);
+            return;
+        }
+
+        availablePlayers.forEach(player => {
+            const item = document.createElement('div');
+            item.className = 'pool-item';
+            item.innerHTML = `
+                <div class="pool-shirt" style="--shirt-color: ${player.shirtColor};"></div>
+                <div>
+                    <div class="pool-name">${player.name}</div>
+                    <div class="pool-sub">${player.nation} · ${player.position || '-'} · ${player.value}M</div>
+                </div>
+            `;
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'pool-add';
+            button.innerText = 'הוסף';
+            const hasOpenSlot = getOpenSlotIndexForPosition(player.position) !== -1;
+            button.disabled = selectedPlayers.every(entry => entry) || !hasOpenSlot;
+            button.addEventListener('click', () => addPlayerToDraft(player.name));
+
+            item.appendChild(button);
+            poolList.appendChild(item);
+        });
+    }
+
+    const bigNations = [
+        {
+            name: "Group L",
+            teams: [
+                { name: "England", flagFile: "flags/gb-eng.svg" },
+                { name: "Croatia", flagFile: "flags/hr.svg" },
+                { name: "Ghana", flagFile: "flags/gh.svg" },
+                { name: "Panama", flagFile: "flags/pa.svg" }
+            ]
+        },
+        {
+            name: "Group J",
+            teams: [
+                { name: "Argentina", flagFile: "flags/ar.svg" },
+                { name: "Algeria", flagFile: "flags/dz.svg" },
+                { name: "Austria", flagFile: "flags/at.svg" },
+                { name: "Jordan", flagFile: "flags/jo.svg" }
+            ]
+        },
+        {
+            name: "Group D",
+            teams: [
+                { name: "USA", flagFile: "flags/us.svg" },
+                { name: "Paraguay", flagFile: "flags/py.svg" },
+                { name: "Australia", flagFile: "flags/au.svg" },
+                { name: "Türkiye", flagFile: "flags/tr.svg" }
+            ]
+        },
+        {
+            name: "Group I",
+            teams: [
+                { name: "France", flagFile: "flags/fr.svg" },
+                { name: "Senegal", flagFile: "flags/sn.svg" },
+                { name: "Iraq", flagFile: "flags/iq.svg" },
+                { name: "Norway", flagFile: "flags/no.svg" }
+            ]
+        }
+    ];
+
+    const worldCupNations = [
+        "-- בחר נבחרת --",
+        "צרפת",
+        "ספרד",
+        "אנגליה",
+        "ארגנטינה",
+        "ברזיל",
+        "פורטוגל",
+        "גרמניה",
+        "הולנד",
+        "נורבגיה",
+        "בלגיה",
+        "קולומביה",
+        "יפן",
+        "מרוקו",
+        "אורוגוואי",
+        "ארצות הברית",
+        "שוויץ",
+        "טורקיה",
+        "מקסיקו",
+        "קרואטיה",
+        "אקוודור",
+        "אחר",
+        "סנגל",
+        "שבדיה",
+        "אוסטריה",
+        "פרגוואי",
+        "קנדה",
+        "בוסניה והרצגובינה",
+        "סקוטלנד",
+        "חוף השנהב",
+        "מצרים",
+        "צ'ילה",
+        "אלג'יריה",
+        "גאנה",
+        "דרום קוריאה"
+    ];
+
+    const marqueeMatches = [
+        { name: "מקסיקו נגד דרום אפריקה", home: "מקסיקו", away: "דרום אפריקה", homeFlagFile: "flags/mx.svg", awayFlagFile: "flags/za.svg", group: "מפגש מרכזי בשלב הבתים" },
+        { name: "ארהב נגד טורקיה", home: "ארהב", away: "טורקיה", homeFlagFile: "flags/us.svg", awayFlagFile: "flags/tr.svg", group: "מפגש מרכזי בשלב הבתים" },
+        { name: "הולנד נגד שוודיה", home: "הולנד", away: "שוודיה", homeFlagFile: "flags/nl.svg", awayFlagFile: "flags/se.svg", group: "מפגש מרכזי בשלב הבתים" },
+        { name: "איראן נגד מצריים", home: "איראן", away: "מצריים", homeFlagFile: "flags/ir.svg", awayFlagFile: "flags/eg.svg", group: "מפגש מרכזי בשלב הבתים" },
+        { name: "נורווגיה נגד סנגל", home: "נורווגיה", away: "סנגל", homeFlagFile: "flags/no.svg", awayFlagFile: "flags/sn.svg", group: "מפגש מרכזי בשלב הבתים" },
+        { name: "ארגנטינה נגד אוסטריה", home: "ארגנטינה", away: "אוסטריה", homeFlagFile: "flags/ar.svg", awayFlagFile: "flags/at.svg", group: "מפגש מרכזי בשלב הבתים" },
+        { name: "אנגליה נגד קרואטיה", home: "אנגליה", away: "קרואטיה", homeFlagFile: "flags/gb-eng.svg", awayFlagFile: "flags/hr.svg", group: "מפגש מרכזי בשלב הבתים" }
+    ];
+
+    const outcomeStages = [
+        "לא תעבור את שלב הבתים",
+        "תעבור את שלב הבתים",
+        "תגיע לשמינית גמר",
+        "תגיע לרבע גמר",
+        "תגיע לחצי גמר",
+        "תגיע לגמר",
+        "תזכה"
+    ];
+
+    const outcomeTeams = [
+        { name: "ארהב", flagFile: "flags/us.svg" },
+        { name: "אנגליה", flagFile: "flags/gb-eng.svg" },
+        { name: "ספרד", flagFile: "flags/es.svg" },
+        { name: "צרפת", flagFile: "flags/fr.svg" },
+        { name: "ארגנטינה", flagFile: "flags/ar.svg" },
+        { name: "מקסיקו", flagFile: "flags/mx.svg" },
+        { name: "ברזיל", flagFile: "flags/br.svg" },
+        { name: "פורטוגל", flagFile: "flags/pt.svg" },
+        { name: "הולנד", flagFile: "flags/nl.svg" },
+        { name: "גרמניה", flagFile: "flags/de.svg" }
+    ];
+
+    async function loadFantasyPlayers() {
+        try {
+            const [playersRes, squadsRes] = await Promise.all([
+                fetch('players.json'),
+                fetch('squads.json')
+            ]);
+
+            if (!playersRes.ok || !squadsRes.ok) {
+                throw new Error('Failed to load fantasy data');
+            }
+
+            const [playersData, squadsData] = await Promise.all([
+                playersRes.json(),
+                squadsRes.json()
+            ]);
+
+            const squadById = new Map(squadsData.map(squad => [squad.id, squad]));
+            const colorScale = [
+                '#1d4ed8', '#16a34a', '#b91c1c', '#0f766e', '#f59e0b',
+                '#6d28d9', '#0ea5e9', '#e11d48', '#65a30d', '#9333ea'
+            ];
+
+            const draftPlayers = playersData.map(player => {
+                const name = player.knownName || [player.firstName, player.lastName].filter(Boolean).join(' ');
+                const squad = squadById.get(player.squadId);
+                const nation = squad ? squad.name : 'Unknown';
+                const value = Math.round(player.price * 2.5);
+                const colorIndex = player.squadId ? player.squadId % colorScale.length : 0;
+
+                return {
+                    name,
+                    nation,
+                    position: player.position || '',
+                    value,
+                    shirtColor: (squad && squad.kitColor) ? squad.kitColor : colorScale[colorIndex]
+                };
+            });
+
+            playerPool = [
+                { name: "-- Select Player --", nation: "", position: "", value: 0, shirtColor: "#334155" },
+                ...draftPlayers
+            ];
+        } catch (error) {
+            playerPool = [
+                { name: "-- Select Player --", nation: "", position: "", value: 0, shirtColor: "#334155" },
+                ...(window.playerDraftData || [])
+            ];
+            console.error('Fantasy data load error:', error);
+        }
+
+        refreshCountryOptions();
+        renderPitch();
+        renderPool();
+        updateBudgetTracker();
+    }
+
+    loadFantasyPlayers();
+
+    // Build Tournament Outcomes Grid (mobile-first cards)
+    const outcomeGrid = document.getElementById('outcomeGrid');
+    const outcomeCards = document.createElement('div');
+    outcomeCards.className = 'outcome-grid';
+
+    function setOutcomeStage(card, teamName, stage) {
+        card.dataset.selectedStage = stage;
+        const current = card.querySelector('.outcome-current');
+        if (current) {
+            current.textContent = stage;
+        }
+
+        const hiddenInput = card.querySelector('.outcome-stage-value');
+        if (hiddenInput) {
+            hiddenInput.value = stage;
+        }
+
+        const buttons = card.querySelectorAll('.outcome-stage-btn');
+        buttons.forEach(button => {
+            const isActive = button.dataset.stage === stage;
+            button.classList.toggle('active', isActive);
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+    }
+
+    outcomeTeams.forEach(team => {
+        const card = document.createElement('div');
+        card.className = 'outcome-card';
+        card.dataset.team = team.name;
+
+        const head = document.createElement('div');
+        head.className = 'outcome-card-head';
+        head.innerHTML = `
+            <div class="outcome-team">
+                <img class="outcome-flag" src="${team.flagFile}" alt="${team.name} flag">
+                <span>${team.name}</span>
+            </div>
+            <div class="outcome-current"></div>
+        `;
+
+        const stagesWrap = document.createElement('div');
+        stagesWrap.className = 'outcome-stage-grid';
+
+        outcomeStages.forEach(stage => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'outcome-stage-btn';
+            button.dataset.stage = stage;
+            button.textContent = stage;
+            button.addEventListener('click', () => setOutcomeStage(card, team.name, stage));
+            stagesWrap.appendChild(button);
+        });
+
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.className = 'outcome-stage-value';
+        hidden.name = `outcome_${team.name}`;
+
+        card.appendChild(head);
+        card.appendChild(stagesWrap);
+        card.appendChild(hidden);
+        outcomeCards.appendChild(card);
+
+        setOutcomeStage(card, team.name, outcomeStages[0]);
+    });
+
+    outcomeGrid.appendChild(outcomeCards);
+
+    // Fix Budget Feature Calculation Logic
+    function updateBudgetTracker() {
+        const remaining = TOTAL_BUDGET - getSelectedTotal();
+        const display = document.getElementById('budgetDisplay');
+        const btn = document.getElementById('submitBtn');
+
+        display.innerText = `$${remaining}M`;
+        if (remaining < 0) {
+            display.classList.add('danger');
+            btn.disabled = true;
+        } else {
+            display.classList.remove('danger');
+            btn.disabled = false;
+        }
+    }
+
+    // Build Group Stage Drag-and-Drop Lists
+    const groupsContainer = document.getElementById('groupStandingsContainer');
+    bigNations.forEach(group => {
+        const box = document.createElement('div');
+        box.className = 'group-box';
+        box.innerHTML = `
+            <div class="group-title">${group.name}</div>
+            <div class="group-note">גררו כדי לקבוע את הסדר הסופי.</div>
+        `;
+
+        const list = document.createElement('ul');
+        list.className = 'group-list';
+        list.dataset.group = group.name;
+
+        group.teams.forEach((team, index) => {
+            const item = document.createElement('li');
+            item.className = 'group-item';
+            item.draggable = true;
+            item.dataset.team = team.name;
+            item.innerHTML = `
+                <div class="group-rank">${index + 1}</div>
+                <div class="group-flag"><img src="${team.flagFile}" alt="${team.name} flag"></div>
+                <div>${team.name}</div>
+                <div class="group-handle" aria-hidden="true">&#9776;</div>
+            `;
+            list.appendChild(item);
+        });
+
+        let draggedItem = null;
+
+        list.addEventListener('dragstart', event => {
+            const target = event.target.closest('.group-item');
+            if (!target) {
+                return;
+            }
+            draggedItem = target;
+            target.classList.add('dragging');
+            event.dataTransfer.effectAllowed = 'move';
+        });
+
+        list.addEventListener('dragend', () => {
+            if (draggedItem) {
+                draggedItem.classList.remove('dragging');
+                draggedItem = null;
+            }
+        });
+
+        list.addEventListener('dragover', event => {
+            event.preventDefault();
+            const target = event.target.closest('.group-item');
+            if (!target || target === draggedItem) {
+                return;
+            }
+
+            const rect = target.getBoundingClientRect();
+            const offset = event.clientY - rect.top;
+            const shouldInsertBefore = offset < rect.height / 2;
+            if (shouldInsertBefore) {
+                list.insertBefore(draggedItem, target);
+            } else {
+                list.insertBefore(draggedItem, target.nextSibling);
+            }
+            updateGroupRanks(list);
+        });
+
+        box.appendChild(list);
+        groupsContainer.appendChild(box);
+    });
+
+    function updateGroupRanks(list) {
+        const items = list.querySelectorAll('.group-item');
+        items.forEach((item, index) => {
+            const rank = item.querySelector('.group-rank');
+            if (rank) {
+                rank.textContent = String(index + 1);
+            }
+        });
+    }
+
+    // Populate Awards Choices
+    const bootSelect = document.getElementById('goldenBoot');
+    const gloveSelect = document.getElementById('goldenGlove');
+    const ballSelect = document.getElementById('goldenBall');
+    const youngSelect = document.getElementById('bestYoung');
+    const nationSelect = document.getElementById('winningNation');
+    goldenBootNominees.forEach(player => {
+        const fixedName = normalizeNameOrder(player.name);
+        const isPlaceholder = fixedName.startsWith('--');
+        const label = fixedName;
+        const val = isPlaceholder ? "" : fixedName;
+        bootSelect.options.add(new Option(label, val));
+    });
+
+    goldenBallNominees.forEach(player => {
+        const fixedName = normalizeNameOrder(player.name);
+        const isPlaceholder = fixedName.startsWith('--');
+        const label = fixedName;
+        const val = isPlaceholder ? "" : fixedName;
+        ballSelect.options.add(new Option(label, val));
+    });
+
+    youngNominees.forEach(name => {
+        const fixedName = normalizeNameOrder(name);
+        const val = fixedName.startsWith('--') ? "" : fixedName;
+        youngSelect.options.add(new Option(fixedName, val));
+    });
+
+    worldCupNations.forEach(name => {
+        const val = name.startsWith('--') ? "" : name;
+        nationSelect.options.add(new Option(name, val));
+    });
+
+    goalkeeperNominees.forEach(name => {
+        const fixedName = normalizeNameOrder(name);
+        const val = fixedName.startsWith('--') ? "" : fixedName;
+        gloveSelect.options.add(new Option(fixedName, val));
+    });
+
+    // Build Marquee Match Predictions
+    const marqueeContainer = document.getElementById('marqueeMatchesContainer');
+    marqueeMatches.forEach((match, index) => {
+        const card = document.createElement('div');
+        card.className = 'match-card';
+        card.dataset.selected = '';
+
+        card.innerHTML = `
+            <div class="match-title"><img class="match-flag match-flag--title" src="${match.awayFlagFile}" alt="${match.away} flag"> ${match.home} נגד ${match.away} <img class="match-flag match-flag--title" src="${match.homeFlagFile}" alt="${match.home} flag"></div>
+            <div class="match-meta">${match.group}</div>
+        `;
+
+        const choices = document.createElement('div');
+        choices.className = 'match-choices';
+
+        const buttonData = [
+            { value: match.away, label: `<img class="match-flag" src="${match.awayFlagFile}" alt="${match.away} flag">` },
+            { value: 'Draw', label: '<span class="match-draw">תיקו</span>' },
+            { value: match.home, label: `<img class="match-flag" src="${match.homeFlagFile}" alt="${match.home} flag">` }
+        ];
+
+        buttonData.forEach(item => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'match-choice';
+            button.innerHTML = `<span>${item.label}</span>`;
+            button.addEventListener('click', () => {
+                card.dataset.selected = item.value;
+                choices.querySelectorAll('.match-choice').forEach(choice => choice.classList.remove('active'));
+                button.classList.add('active');
+            });
+            choices.appendChild(button);
+        });
+
+        card.appendChild(choices);
+        marqueeContainer.appendChild(card);
+    });
+
+    // Handle Live internet Connection Submission
+    document.getElementById('zulaForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const statusEl = document.getElementById('formStatus');
+        const submitBtn = document.getElementById('submitBtn');
+        statusEl.className = 'form-status';
+        statusEl.textContent = '';
+        submitBtn.disabled = true;
+
+        // Package all data clean into an object payload
+        const payload = {
+            manager: document.getElementById('userName').value.trim(),
+            picks: selectedPlayers.map(player => player ? player.name : ''),
+            awards: {
+                goldenBoot: document.getElementById('goldenBoot').value,
+                goldenGlove: document.getElementById('goldenGlove').value,
+                goldenBall: document.getElementById('goldenBall').value,
+                bestYoung: document.getElementById('bestYoung').value,
+                winningNation: document.getElementById('winningNation').value
+            },
+            groupPredictions: {},
+            marqueePredictions: {},
+            tournamentOutcomes: {}
+        };
+
+        const missingFields = [];
+        if (!payload.manager) {
+            missingFields.push('שם מנהל');
+        }
+
+        const draftComplete = payload.picks.every(name => name);
+        if (!draftComplete) {
+            missingFields.push('בחירת 5 שחקנים');
+        }
+
+        const awardsComplete = Object.values(payload.awards).every(value => value);
+        if (!awardsComplete) {
+            missingFields.push('תארי הטורניר');
+        }
+
+        bigNations.forEach(group => {
+            const list = document.querySelector(`.group-list[data-group="${group.name}"]`);
+            const selections = Array.from(list.querySelectorAll('.group-item')).map(item => item.dataset.team);
+            payload.groupPredictions[group.name] = selections;
+        });
+
+        const groupsComplete = Object.values(payload.groupPredictions).every(group => group.length === 4 && group.every(Boolean));
+        if (!groupsComplete) {
+            missingFields.push('דירוג בתים');
+        }
+
+        marqueeMatches.forEach((match, index) => {
+            const card = marqueeContainer.children[index];
+            const selection = card ? card.dataset.selected : '';
+            payload.marqueePredictions[match.name] = selection;
+        });
+
+        const marqueeComplete = Object.values(payload.marqueePredictions).every(value => value);
+        if (!marqueeComplete) {
+            missingFields.push('ניחושי משחקי ענק');
+        }
+
+        let outcomesComplete = true;
+        outcomeTeams.forEach(team => {
+            const card = document.querySelector(`.outcome-card[data-team="${team.name}"]`);
+            const stage = card ? card.dataset.selectedStage : '';
+            if (!stage) {
+                outcomesComplete = false;
+            }
+            payload.tournamentOutcomes[team.name] = stage;
+        });
+
+        if (!outcomesComplete) {
+            missingFields.push('תוצאות טורניר');
+        }
+
+        if (missingFields.length > 0) {
+            statusEl.classList.add('error');
+            statusEl.textContent = `נא להשלים את: ${missingFields.join(' · ')}`;
+            submitBtn.disabled = false;
+            return;
+        }
+
+        try {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({
+                    manager: payload.manager,
+                    picks: payload.picks,
+                    golden_boot: payload.awards.goldenBoot,
+                    golden_glove: payload.awards.goldenGlove,
+                    golden_ball: payload.awards.goldenBall,
+                    best_young_player: payload.awards.bestYoung,
+                    winning_nation: payload.awards.winningNation,
+                    group_predictions: payload.groupPredictions,
+                    marquee_predictions: payload.marqueePredictions,
+                    tournament_outcomes: payload.tournamentOutcomes
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText || 'Submission failed');
+            }
+
+            statusEl.classList.add('success');
+            statusEl.textContent = `Thanks ${payload.manager}! Your predictions are saved.`;
+        } catch (error) {
+            statusEl.classList.add('error');
+            statusEl.textContent = 'Sorry, something went wrong. Please try again.';
+            console.error('Submission error:', error);
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>
